@@ -15,12 +15,13 @@ last_week = now - timedelta(7)
 sub7_date = last_week.strftime("%m-%d-%Y")
 today_date = now.strftime("%m-%d-%Y")
 fileold = "PortScan - " + sub7_date + ".txt"
-    
+
+#Deletes scan results older than 7 days if it exists    
 if os.path.exists(fileold):
     os.remove(fileold)
     print("Deleted file from: ", sub7_date)
-    
-#Stores new results in a file and deletes the file older than 7 days
+
+#Creates new file with scan results    
 filenew = "PortScan - " + today_date + ".txt"
 f = open(filenew, "a")
 f.write("\r<<-PORT SCAN: " + today_date + "->>\r")
@@ -29,15 +30,14 @@ f.write("\n")
 def portscan(target):
     
     for hname in target:
-        
-        t_IP = socket.gethostbyname(hname)
+        t_IP = socket.gethostbyname(hname)              #Converts hostnames to IPs
         f.write(hname + " (" + t_IP +")")
         f.write(":\n")
         print ("\nStarting scan for: {} ({})\n".format(t_IP, hname))
 
         try:
             f.write("\n")
-            for port in range(1, 100):  #Range of ports 1-100, can go upto 65536.
+            for port in range(1, 100):                  #Range of ports 1-100, can go upto 65536.
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 con = s.connect_ex((t_IP, port))
                 if con == 0:
@@ -78,7 +78,7 @@ def send():
     #Provide the contents of the email.
         response = client.send_email(
         Destination={
-            'ToAddresses': ['xyz@hotmail.com', 'abc@gmail.com'],    #Add as many email address you want
+            'ToAddresses': ['xyz@hotmail.com', 'abc@gmail.com'],    #Receivers email address
         },
         Message={
             'Body': {
