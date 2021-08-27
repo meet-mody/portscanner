@@ -8,7 +8,7 @@ import boto3
 
 
 # Add multiple IP's or hostname seperated by comma
-target = ["www.google.com]  
+target = ["www.google.com"]  
 socket.setdefaulttimeout(0.10)
 now = datetime.now()
 last_week = now - timedelta(7)
