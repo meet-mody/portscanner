@@ -8,7 +8,7 @@ import boto3
 
 
 # Add multiple IP's or hostname seperated by comma
-target = ["www.google.com"]  
+target = ["www.google.com"]
 socket.setdefaulttimeout(0.10)
 now = datetime.now()
 last_week = now - timedelta(7)
@@ -20,6 +20,7 @@ if os.path.exists(fileold):
     os.remove(fileold)
     print("Deleted file from: ", sub7_date)
     
+#Stores new results in a file and deletes the file older than 7 days
 filenew = "PortScan - " + today_date + ".txt"
 f = open(filenew, "a")
 f.write("\r<<-PORT SCAN: " + today_date + "->>\r")
@@ -36,7 +37,7 @@ def portscan(target):
 
         try:
             f.write("\n")
-            for port in range(1, 100):
+            for port in range(1, 100):  #Range of ports 1-100, can go upto 65536.
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 con = s.connect_ex((t_IP, port))
                 if con == 0:
@@ -50,7 +51,6 @@ def portscan(target):
             
 def send():
     SENDER = "notifications@gmail.com"  #Replace with email id of sender
-    RECIPIENT = "recipient@gmail.com"   #Replace with email id of recipient
     id = "Your API id"                  #Amazon SES API ID
     key = "Your API key"                #Amazon SES API key
 
@@ -78,9 +78,7 @@ def send():
     #Provide the contents of the email.
         response = client.send_email(
         Destination={
-            'ToAddresses': [
-                RECIPIENT,
-            ],
+            'ToAddresses': ['xyz@hotmail.com', 'abc@gmail.com'],    #Add as many email address you want
         },
         Message={
             'Body': {
